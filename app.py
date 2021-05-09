@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, jsonify
+from fastapi import FastAPI, Request
 
 import sqlite3
 import pandas as pd
@@ -41,7 +41,7 @@ def receber(request: Request):
     cur = conn.cursor();
     cur.execute('SELECT * FROM contas')
     resultados= cur.fetchall()
-    return jsonify(resultados)
+    return resultados
 
 @app.get("/deletar")
 def deletar(request: Request):
@@ -102,7 +102,7 @@ def resultado(request: Request):
     #print(df)
     valor_final_formatado = round(valor_final,2)
     #print({'valor':valor_final_formatado})
-    return jsonify(valor_final_formatado)
+    return valor_final_formatado
 
 
 @app.get("/datatable")
@@ -124,5 +124,5 @@ def datatable(request: Request):
     
 
     
-    return jsonify(d)
+    return d
 
