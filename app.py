@@ -4,6 +4,7 @@ import sqlite3
 import pandas as pd
 import numpy as np
 from fastapi.encoders import jsonable_encoder
+from json import JSONDecodeError
 
 from fastapi.responses import JSONResponse
 
@@ -22,7 +23,12 @@ async def inicio():
 
 @app.post("/enviar")
 async def enviar(request: Request):
-    dict_json =request.json;
+    try:
+        dict_json = await request.json();
+
+    except Exception as e:
+        print(e)
+
     print("-----------")
     print(dict_json)
     print("-----------")
