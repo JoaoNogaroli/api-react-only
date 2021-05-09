@@ -7,21 +7,13 @@ import numpy as np
 
 app = FastAPI()
 
-origins = [
-    'https://only-react-two.vercel.app/resultado',
-    'https://only-react-two.vercel.app/receber',
-    'https://only-react-two.vercel.app/enviar',
-    'https://only-react-two.vercel.app/',
 
-]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=['GET','POST','OPTIONS'],
-    allow_headers=['Content-Type','application/xml', 'application/json'],
-)
+app.add_middleware(CORSMiddleware,
+allow_origins=["*"],
+allow_credentials=True,
+allow_methods=["*"],
+allow_headers=["*"],)
 
 conn = sqlite3.connect('db.db', check_same_thread=False)
 conn.execute('CREATE TABLE IF NOT EXISTS contas(tipo VARCHAR(10), valor VARCHAR(20))')
