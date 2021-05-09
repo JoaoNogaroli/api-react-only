@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, jsonify
 
 import sqlite3
 import pandas as pd
