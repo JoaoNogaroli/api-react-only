@@ -1,11 +1,23 @@
 from fastapi import FastAPI, Request
-
+from starlette.middleware.cors import CORSmiddleware
 import sqlite3
 import pandas as pd
 import numpy as np
 
 
 app = FastAPI()
+
+origins = [
+    'https://only-react-two.vercel.app/'
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['GET','POST'],
+    allow_headers=['Content-Type','application/xml', 'application/json'],
+)
 
 conn = sqlite3.connect('db.db', check_same_thread=False)
 conn.execute('CREATE TABLE IF NOT EXISTS contas(tipo VARCHAR(10), valor VARCHAR(20))')
