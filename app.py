@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from starlette.middleware.cors import CORSmiddleware
+from starlette.middleware.cors import CORSMiddleware
 import sqlite3
 import pandas as pd
 import numpy as np
@@ -23,11 +23,11 @@ conn = sqlite3.connect('db.db', check_same_thread=False)
 conn.execute('CREATE TABLE IF NOT EXISTS contas(tipo VARCHAR(10), valor VARCHAR(20))')
 
 @app.get("/")
-def inicio():
+async def inicio():
     return {'ok':'ok'}
 
 @app.post("/enviar")
-def enviar(request: Request):
+async def enviar(request: Request):
     dict_json =request.json;
     #print(dict_json)
     tipo = dict_json['0']
@@ -49,14 +49,14 @@ def enviar(request: Request):
     return 'enivado'
 
 @app.get("/receber")
-def receber(request: Request):
+async def receber(request: Request):
     cur = conn.cursor();
     cur.execute('SELECT * FROM contas')
     resultados= cur.fetchall()
     return resultados
 
 @app.get("/deletar")
-def deletar(request: Request):
+async def deletar(request: Request):
     cur = conn.cursor();
     cur.execute('DROP TABLE contas')
     conn.commit();
@@ -64,7 +64,7 @@ def deletar(request: Request):
 
 #@app.get("/resultado")
 @app.post("/resultado")
-def resultado(request: Request):
+async def resultado(request: Request):
     cur = conn.cursor();
     cur.execute('SELECT * FROM contas')
     resultados= cur.fetchall()
@@ -76,7 +76,7 @@ def resultado(request: Request):
     
     d = {}
     for x, y in resultados:
-        d.setdefault(x, []).append(y)
+        d.async setdefault(x, []).append(y)
     #print(d)
     #print('-------')
     valores_entrada = d['Entrada']
@@ -118,7 +118,7 @@ def resultado(request: Request):
 
 
 @app.get("/datatable")
-def datatable(request: Request):
+async def datatable(request: Request):
     cur = conn.cursor();
     cur.execute('SELECT * FROM contas')
     resultados= cur.fetchall()
@@ -130,7 +130,7 @@ def datatable(request: Request):
     
     d = {}
     for x, y in resultados:
-        d.setdefault(x, []).append(y)
+        d.async setdefault(x, []).append(y)
     #print(d)
     #print('-------')
     
