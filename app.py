@@ -3,6 +3,8 @@ from starlette.middleware.cors import CORSMiddleware
 import sqlite3
 import pandas as pd
 import numpy as np
+from fastapi.encoders import jsonable_encoder
+
 from fastapi.responses import JSONResponse
 
 
