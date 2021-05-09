@@ -20,10 +20,12 @@ conn.execute('CREATE TABLE IF NOT EXISTS contas(tipo VARCHAR(10), valor VARCHAR(
 async def inicio():
     return {'ok':'ok'}
 
-@app.post("/enviar")
+@app.get("/enviar")
 async def enviar(request: Request):
     dict_json =request.json;
-    #print(dict_json)
+    print("-----------")
+    print(dict_json)
+    print("-----------")
     tipo = dict_json['0']
     valor = dict_json['1']
     
