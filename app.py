@@ -3,6 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 import sqlite3
 import pandas as pd
 import numpy as np
+from fastapi.responses import JSONResponse
 
 
 app = FastAPI()
@@ -49,7 +50,9 @@ async def receber(request: Request):
     cur = conn.cursor();
     cur.execute('SELECT * FROM contas')
     resultados= cur.fetchall()
-    return resultados
+    json_compatible_item_data = jsonable_encoder(resultados)
+
+    return JSONResponse(content=json_compatible_item_data)
 
 @app.get("/deletar")
 async def deletar(request: Request):
@@ -110,7 +113,10 @@ async def resultado(request: Request):
     #print(df)
     valor_final_formatado = round(valor_final,2)
     #print({'valor':valor_final_formatado})
-    return valor_final_formatado
+
+    json_compatible_item_data = jsonable_encoder(valor_final_formatado)
+    return JSONResponse(content=json_compatible_item_data)
+
 
 
 @app.get("/datatable")
