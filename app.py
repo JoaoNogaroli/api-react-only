@@ -50,7 +50,7 @@ async def enviar(request: Request):
     
     return 'enivado'
 
-@app.post("/receber")
+@app.get("/receber")
 async def receber(request: Request):
     cur = conn.cursor();
     cur.execute('SELECT * FROM contas')
@@ -67,6 +67,7 @@ async def deletar(request: Request):
     return 'ok'
 
 #@app.get("/resultado")
+@app.post("/resultado")
 @app.get("/resultado")
 async def resultado(request: Request):
     cur = conn.cursor();
