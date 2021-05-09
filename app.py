@@ -12,11 +12,6 @@ app = FastAPI()
 
 
 
-app.add_middleware(CORSMiddleware,
-allow_origins=["*"],
-allow_credentials=True,
-allow_methods=["*"],
-allow_headers=["*"],)
 
 conn = sqlite3.connect('db.db', check_same_thread=False)
 conn.execute('CREATE TABLE IF NOT EXISTS contas(tipo VARCHAR(10), valor VARCHAR(20))')
@@ -142,3 +137,9 @@ async def datatable(request: Request):
     
     return d
 
+
+app.add_middleware(CORSMiddleware,
+allow_origins=["*"],
+allow_credentials=True,
+allow_methods=["GET","POST"],
+allow_headers=["*"],)
