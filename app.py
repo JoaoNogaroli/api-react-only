@@ -76,7 +76,7 @@ async def resultado(request: Request):
     
     d = {}
     for x, y in resultados:
-        d.async setdefault(x, []).append(y)
+        d.setdefault(x, []).append(y)
     #print(d)
     #print('-------')
     valores_entrada = d['Entrada']
@@ -130,7 +130,7 @@ async def datatable(request: Request):
     
     d = {}
     for x, y in resultados:
-        d.async setdefault(x, []).append(y)
+        d.setdefault(x, []).append(y)
     #print(d)
     #print('-------')
     
