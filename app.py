@@ -8,14 +8,18 @@ import numpy as np
 app = FastAPI()
 
 origins = [
-    'https://only-react-two.vercel.app/'
+    'https://only-react-two.vercel.app/resultado',
+    'https://only-react-two.vercel.app/receber',
+    'https://only-react-two.vercel.app/enviar',
+    'https://only-react-two.vercel.app/',
+
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=['GET','POST'],
+    allow_methods=['GET','POST','OPTIONS'],
     allow_headers=['Content-Type','application/xml', 'application/json'],
 )
 
