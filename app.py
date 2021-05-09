@@ -14,7 +14,7 @@ conn.execute('CREATE TABLE IF NOT EXISTS contas(tipo VARCHAR(10), valor VARCHAR(
 def inicio():
     return {'ok':'ok'}
 
-@app.get("/enviar")
+@app.post("/enviar")
 def enviar(request: Request):
     dict_json =request.json;
     #print(dict_json)
@@ -51,7 +51,7 @@ def deletar(request: Request):
     return 'ok'
 
 #@app.get("/resultado")
-@app.get("/resultado")
+@app.post("/resultado")
 def resultado(request: Request):
     cur = conn.cursor();
     cur.execute('SELECT * FROM contas')
