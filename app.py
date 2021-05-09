@@ -67,7 +67,7 @@ async def deletar(request: Request):
     return 'ok'
 
 #@app.get("/resultado")
-@app.get("/resultado")
+@app.post("/resultado")
 async def resultado(request: Request):
     cur = conn.cursor();
     cur.execute('SELECT * FROM contas')
