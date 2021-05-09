@@ -10,6 +10,9 @@ app = FastAPI()
 conn = sqlite3.connect('db.db', check_same_thread=False)
 conn.execute('CREATE TABLE IF NOT EXISTS contas(tipo VARCHAR(10), valor VARCHAR(20))')
 
+@app.get("/")
+def inicio():
+    return {'ok':'ok'}
 
 @app.get("/enviar")
 def enviar(request: Request):
