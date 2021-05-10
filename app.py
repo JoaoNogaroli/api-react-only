@@ -87,7 +87,7 @@ async def resultado(request: Request):
     #print(d)
     #print('-------')
     valores_entrada = d['Entrada']
-    valores_saida = d['Saida']
+    valores_saida = d['Saída']
 
     #print(valores_entrada)
     #print('-------')
