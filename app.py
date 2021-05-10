@@ -9,7 +9,7 @@ from json import JSONDecodeError
 from fastapi.responses import JSONResponse
 import os
 from starlette.responses import FileResponse
-
+import csv
 
 app = FastAPI()
 
@@ -87,7 +87,7 @@ async def resultado(request: Request):
     #print(d)
     #print('-------')
     valores_entrada = d['Entrada']
-    valores_saida = d['Saída']
+    valores_saida = d['Saida']
 
     #print(valores_entrada)
     #print('-------')
@@ -149,10 +149,48 @@ async def datatable(request: Request):
 @app.get("/create_file/")
 @app.post("/create_file/")
 async def image():
-    file_path = "teste2.csv"
+
+    cur = conn.cursor();
+    cur.execute('SELECT * FROM contas')
+    resultados= cur.fetchall()
+    print(resultados)
+    #print('-------')
+    print(type(resultados))
+    #print('-------')
+
+    
+    d = {}
+    for x, y in resultados:
+        d.setdefault(x, []).append(y)
+    print(d)
+    print('-------D')
+    print(type(d))
+
+    # data to be written row-wise in csv fil
+    
+    # opening the csv file in 'w+' mode
+    
+    # writing the data into the file
+    with open('meu_extrato.csv', 'w+', newline ='') as file:   
+        
+        write = csv.writer(file)
+        
+        write.writerows(resultados)
 
 
-    return FileResponse(path=file_path, media_type='text/csv',filename=file_path)
+    csv_columns = ['Entrada', 'Saida']
+
+    csv_file = "meu_extrato.csv"
+    '''
+    with open(csv_file, 'w') as f:
+        writer = csv.DictWriter(f, fieldnames = csv_columns)
+        for key in d.keys():
+            writer.writerow(d[key])'''
+
+
+    return FileResponse(path=csv_file, media_type='text/csv',filename=csv_file)
+    #return 'ok'
+    
 
 
 
