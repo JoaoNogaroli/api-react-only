@@ -1,12 +1,14 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, File, UploadFile
+import requests
 from starlette.middleware.cors import CORSMiddleware
 import sqlite3
 import pandas as pd
 import numpy as np
 from fastapi.encoders import jsonable_encoder
 from json import JSONDecodeError
-
 from fastapi.responses import JSONResponse
+import os
+from starlette.responses import FileResponse
 
 
 app = FastAPI()
@@ -123,8 +125,6 @@ async def resultado(request: Request):
     json_compatible_item_data = jsonable_encoder(valor_final_formatado)
     return JSONResponse(content=json_compatible_item_data)
 
-
-
 @app.get("/datatable")
 async def datatable(request: Request):
     cur = conn.cursor();
@@ -145,6 +145,15 @@ async def datatable(request: Request):
 
     
     return d
+
+@app.get("/create_file/")
+@app.post("/create_file/")
+async def image():
+    file_path = "teste2.csv"
+
+
+    return FileResponse(path=file_path, media_type='text/csv',filename=file_path)
+
 
 
 app.add_middleware(CORSMiddleware,
