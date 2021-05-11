@@ -58,7 +58,7 @@ async def receber(request: Request):
     cur.execute('SELECT * FROM contas')
     resultados= cur.fetchall()
     json_compatible_item_data = jsonable_encoder(resultados)
-
+    print(json_compatible_item_data)
     return JSONResponse(content=json_compatible_item_data)
 
 @app.get("/deletar")
@@ -84,10 +84,10 @@ async def resultado(request: Request):
     d = {}
     for x, y in resultados:
         d.setdefault(x, []).append(y)
-    #print(d)
+    print(d)
     #print('-------')
     valores_entrada = d['Entrada']
-    valores_saida = d['Saída']
+    valores_saida = d['Saida']
 
     #print(valores_entrada)
     #print('-------')
